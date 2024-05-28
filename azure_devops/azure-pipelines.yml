@@ -1,0 +1,23 @@
+trigger:
+- none
+# schedules:
+#   - cron: "30 18 * * 2,4"
+#     displayName: Cron 15h30
+#     branches:
+#       include:
+#         - main
+pool:
+  vmImage: 'ubuntu-latest'
+variables:
+  - group: 'teste'
+  - name: "svcsandbox"
+    value: svc-app-sandbox-lab
+
+jobs:
+- job: AlertRunbook
+  timeoutInMinutes: 0
+  steps:
+  - template: Template/AlertCICD.yml
+    parameters:
+      url: $(urlInvolke)
+      subscription: $(svcsandbox)

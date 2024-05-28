@@ -1,0 +1,16 @@
+parameters:
+- name: url
+- name: subscription
+
+steps:
+- task: AzurePowerShell@5
+  displayName: 'Involke do Webhook do Runbook'
+  inputs:
+    azureSubscription: ${{ parameters.subscription }}
+    ScriptType: 'FilePath'
+    ScriptPath: '$(System.DefaultWorkingDirectory)/Scripts/InvolkeWebhoook.ps1'
+    ScriptArguments: '
+    -webhook ${{ parameters.url }}
+    '
+    azurePowerShellVersion: 'LatestVersion'
+    pwsh: true
